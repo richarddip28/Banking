@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">BankingApp</string>
+    <string name="app_name">ABC Personal Banking</string>
+
+    <string-array name="salary_list">
+        <item>Choose Salary</item>
+        <item>$0-20,000</item>
+        <item>$20,001-30,000</item>
+        <item>$30,001-40,000</item>
+        <item>$40,001-50,000</item>
+        <item>$50,001-60,000</item>
+        <item>$60,001-70,000</item>
+        <item>$70,001+</item>
+    </string-array>
+
+    <string name="congrats">You have successfully created your account with ABC Banking. Please read below the funding information for your accounts.</string>
+
+    <string name="savings_acc">Earn a monthly interest of 0.1%. No monthly fee and a $500 minimum balance required.</string>
+    <string name="checking_acc">No interest account with the ability to draw checks from. No minimum balance required.</string>
+    <string name="moneymarket_acc">5% monthly interest. $50,000 minimum balance required.</string>
+    <string name="cd_acc">Certificate of Deposit account. Interest Rates fluctates. Starts at 1%. $1000 Minimum balance required.</string>
+    <string name="cd_ira_acc">Individual Retirement Account. Fixed interest rate of 2%. $5000 minimum balance required.</string>
 </resources>

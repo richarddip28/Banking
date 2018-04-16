@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RegisterScreen" />
+        <activity android:name=".Beneficiary" />
+        <activity android:name=".Employment" />
+        <activity android:name=".Documents" />
+        <activity android:name=".Funding" />
+        <activity android:name=".MainPage"></activity>
     </application>
 
 </manifest>
