@@ -40,6 +40,7 @@ public class RegisterScreen extends AppCompatActivity {
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     String uid;
+    Boolean passOk;
 
 
     public void init(){
@@ -52,6 +53,7 @@ public class RegisterScreen extends AppCompatActivity {
         dataRef = FirebaseDatabase.getInstance().getReference();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         editor = prefs.edit();
+        passOk = false;
     }
 
     public void nextScreen(){
@@ -63,7 +65,7 @@ public class RegisterScreen extends AppCompatActivity {
 
     public void convert() {
         EditText txt_email = findViewById(R.id.email);
-        EditText txt_password = findViewById(R.id.password);
+
         EditText txt_fname = findViewById(R.id.firstname);
         EditText txt_lname = findViewById(R.id.lastname);
         EditText txt_phone = findViewById(R.id.phone);
@@ -85,6 +87,29 @@ public class RegisterScreen extends AppCompatActivity {
         dataRef.child(uid).child("userinfo").setValue(user);
     }
 
+    public void validatePassword(){
+
+        EditText txt_password = findViewById(R.id.password);
+        EditText txt_password2 = findViewById(R.id.password2);
+
+            if (txt_password.getText().toString().matches(txt_password2.getText().toString())){
+                if(txt_password.getText().toString().matches("")) {
+                    Toast.makeText(this, "Password Field cannot be empty", Toast.LENGTH_SHORT).show();
+                    passOk = false;
+                }
+                else if(txt_password.getText().toString().length() < 6){
+                    Toast.makeText(this, "Password must be 6 characters", Toast.LENGTH_SHORT).show();
+                    passOk = false;
+                }
+                else
+                    passOk = true;
+            }
+            else {
+                Toast.makeText(this, "Passwords must match", Toast.LENGTH_SHORT).show();
+                passOk = false;
+            }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,23 +123,29 @@ public class RegisterScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final ProgressDialog progressDialog = ProgressDialog.show(RegisterScreen.this, "Please wait...", "Processing...", true);
-                (firebaseAuth.createUserWithEmailAndPassword(txt_email.getText().toString(),txt_password.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
+                validatePassword();
+                if(passOk) {
+                    (firebaseAuth.createUserWithEmailAndPassword(txt_email.getText().toString(), txt_password.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressDialog.dismiss();
 
-                        if (task.isSuccessful()) {
-                            Toast.makeText(RegisterScreen.this, "Registration successful", Toast.LENGTH_LONG).show();
-                            convert();
+
+                            if (task.isSuccessful() && passOk) {
+                                Toast.makeText(RegisterScreen.this, "Registration successful", Toast.LENGTH_LONG).show();
+                                convert();
+                            } else {
+                                Log.e("ERROR", task.getException().toString());
+                            }
                         }
-                        else
-                        {
-                            Log.e("ERROR", task.getException().toString());
-                        }
-                    }
-                });
-                nextScreen();
-                startActivity(i);
+                    });
+
+                    nextScreen();
+                    startActivity(i);
+                }
+                else
+                    progressDialog.dismiss();
+
             }
         });
     }

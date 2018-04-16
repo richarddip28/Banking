@@ -7,30 +7,30 @@
     tools:context="comricharddip28.httpsgithub.bankingapp.MainActivity">
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
         <EditText
             android:id="@+id/email"
-            android:hint="Enter Email"
-            android:textAlignment="center"
-            android:layout_marginTop="100dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:ems="10"
-            android:inputType="textEmailAddress" />
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/password"
-            android:hint="Password"
-            android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textAlignment="center" />
 
         <Button
             android:id="@+id/button"
